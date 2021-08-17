@@ -27,7 +27,9 @@ class Dato extends Base
 	// find the total numbers of days in full years since the mythical 1/1/0001, then add the number of days before the current one in the year passed. Do this for each date, then return the absolute value of the difference
 	public static function days_diff($a, $b, $c = 'DateTime')
 	{
-		return (is_a($a,$c) && is_a($b,$c)) ? self::days($a) - self::days($b) : false;
+    if(!is_a($a,$c) || !is_a($b,$c))
+      throw new \InvalidArgumentException('ARGUMENT_MUST_HAVE_SAME_TYPE');
+		return self::days($a) - self::days($b);
 	}
 
 	public static function days($x, $d = 0)
